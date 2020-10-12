@@ -4,8 +4,7 @@
 #define MAXSIZE 251
 using namespace std;
 
-int N, K;
-int dp[MAXSIZE][MAXSIZE][MAXSIZE]; // 251 * 251 * 251
+int N, K, dp[MAXSIZE][MAXSIZE][MAXSIZE]; // 251 * 251 * 251
 
 /*
  * n = pies left to give (decreases)
