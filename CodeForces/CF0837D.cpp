@@ -24,7 +24,7 @@ int main() {
     freopen("input.in", "r", stdin);
     //freopen("output.out", "w", stdout);
 
-    memset();
+    memset(dp, -INF, sizeof(dp));
     cin >> N >> K;
     for (int i = 0; i < N; ++i) {
         ll a; cin >> a;
