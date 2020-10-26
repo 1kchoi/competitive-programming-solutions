@@ -5,8 +5,6 @@ using namespace std;
 #define ll long long
 #define ar array
 #define PB push_back
-#define rep(i, a, b) for(int i = a; i < (b); ++i)
-#define trav(a, x) for(auto& a : x)
 #define all(x) x.begin(), x.end()
 #define sz(x) (int)(x).size()
 #define NMAX (int)(1e5+5)

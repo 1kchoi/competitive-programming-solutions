@@ -1,4 +1,4 @@
-// Codeforces 0837A - Round Subset
+// Codeforces 837A - Round Subset
 #include <bits/stdc++.h>
 using namespace std;
 #define endl "\n"
@@ -17,7 +17,7 @@ typedef vector<int> vi;
 typedef vector<ii> vii;
 typedef vector<vi> vvi;
 
-ll N, K, p2[NMAX], p5[NMAX], dp[NMAX][NMAX][100];
+ll N, K, p2[NMAX], p5[NMAX], dp[NMAX][NMAX][100], ans;
 
 int main() {
     ios::sync_with_stdio(0); cin.tie(0);
@@ -37,6 +37,26 @@ int main() {
             ++p5[i];
         }
     }
+
+    dp[0][0][0] = 0;
+
+    for (int i = 1; i <= N; i++) {
+        for (int j = 0; j <= K && j <= i; j++) {
+            for (int f = p5[i - 1]; f < 30; f++) {
+                //if (!j) {
+                //    dp[i][j][f] = 0;
+                //}
+                //else
+                dp[i][j][f] = max(dp[i - 1][j][f], dp[i - 1][j - 1][f - p5[i - 1]] + p2[i - 1]);
+            }
+        }
+    }
+
+    for (ll i = 0; i < 30; i++) {
+        ans = max(ans, min(i, dp[N][K][i]));
+    }
+
+    cout << ans << endl;
 
 
 
