@@ -1,7 +1,5 @@
-// CSES Problem Set - List Removals
+// CSES Problem Set - Two Sets II
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-using namespace __gnu_pbds;
 using namespace std;
 #define endl "\n"
 #define ll long long
@@ -9,17 +7,15 @@ using namespace std;
 #define PB push_back
 #define all(x) x.begin(), x.end()
 #define sz(x) (int)(x).size()
-#define NMAX (int)(5e5+5)
+#define NMAX 505
 #define INF 0x3f
 #define MOD (int)(1e9+7)
-typedef ar<ll, 2> ii;
-typedef vector<ll> vi;
+typedef ar<int, 2> ii;
+typedef vector<int> vi;
 typedef vector<ii> vii;
 typedef vector<vi> vvi;
-typedef tree<ii, null_type, less<ii>, rb_tree_tag, tree_order_statistics_node_update> oset;
 
-ll N;
-oset S;
+ll N, dp[NMAX][2 * NMAX * NMAX];
 
 void setIO(string name = "input") {
     freopen((name + ".in").c_str(), "r", stdin);
@@ -31,17 +27,20 @@ int main() {
     ios::sync_with_stdio(0); cin.tie(0); //setIO();
 
     cin >> N;
-    for (int i = 0; i < N; i++) {
-        ll a; cin >> a;
-        S.insert({i, a});
+    if ((N * (N + 1) / 2) & 1) {
+        cout << 0 << endl;
     }
-    for (int i = 0; i < N; i++) {
-        int x; cin >> x; --x;
-        ii ans = *S.find_by_order(x);
-        cout << ans[1] << " ";
-        S.erase(ans);
+    else {
+        dp[0][0] = 1;
+        for (int i = 1; i <= N; i++) {
+            for (int j = 1; j <= i * (i + 1) / 2; j++) {
+                dp[i][j] = dp[i - 1][j];
+                if (i <= j) dp[i][j] += dp[i - 1][j - i];
+                dp[i][j] %= MOD;
+            }
+        }
+        cout << dp[N][N * (N + 1) / 4] << endl;
     }
-    cout << endl;
 
     return 0;
 }

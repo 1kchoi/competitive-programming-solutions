@@ -1,8 +1,6 @@
-// Codeforces ####A - NAME
+// CCO '14 P1 - Troyangles
 #include <bits/stdc++.h>
-//#include <ext/pb_ds/assoc_container.hpp>
 using namespace std;
-//using namespace __gnu_pbds;
 #define endl "\n"
 #define ll long long
 #define ar array
@@ -16,17 +14,18 @@ typedef ar<int, 2> ii;
 typedef vector<int> vi;
 typedef vector<ii> vii;
 typedef vector<vi> vvi;
-//typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> oset;
 
+int N;
 
-//*
 void setIO(string name = "input") {
+    ios::sync_with_stdio(0); cin.tie(0);
     freopen((name + ".in").c_str(), "r", stdin);
     if (name != "input") freopen((name + ".out").c_str(), "w", stdout);
+    return;
 }
-//*/
+
 int main() {
-    ios::sync_with_stdio(0); cin.tie(0); setIO();
+    setIO();
 
     return 0;
 }

@@ -1,8 +1,6 @@
-// Codeforces ####A - NAME
+// CCC '20 J4 - Cyclic Shifts
 #include <bits/stdc++.h>
-//#include <ext/pb_ds/assoc_container.hpp>
 using namespace std;
-//using namespace __gnu_pbds;
 #define endl "\n"
 #define ll long long
 #define ar array
@@ -16,17 +14,30 @@ typedef ar<int, 2> ii;
 typedef vector<int> vi;
 typedef vector<ii> vii;
 typedef vector<vi> vvi;
-//typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> oset;
 
+string T, S;
+int N, M;
 
-//*
 void setIO(string name = "input") {
     freopen((name + ".in").c_str(), "r", stdin);
     if (name != "input") freopen((name + ".out").c_str(), "w", stdout);
+    return;
 }
-//*/
+
 int main() {
     ios::sync_with_stdio(0); cin.tie(0); setIO();
+
+    cin >> T >> S;
+    N = sz(T);
+    M = sz(S);
+    for (int i = 0; i < M; i++) {
+        if ((int)(T.find(S)) != -1) {
+            cout << "yes" << endl;
+            return 0;
+        }
+        S = S.substr(1) + S[0];
+    }
+    cout << "no" << endl;
 
     return 0;
 }

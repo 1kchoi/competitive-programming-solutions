@@ -1,8 +1,6 @@
-// Codeforces ####A - NAME
+// CCCHK '15 S1 - Finding number of pairs
 #include <bits/stdc++.h>
-//#include <ext/pb_ds/assoc_container.hpp>
 using namespace std;
-//using namespace __gnu_pbds;
 #define endl "\n"
 #define ll long long
 #define ar array
@@ -12,21 +10,43 @@ using namespace std;
 #define NMAX (int)(1e5+5)
 #define INF 0x3f
 #define MOD (int)(1e9+7)
-typedef ar<int, 2> ii;
+typedef ar<ll, 2> ii;
 typedef vector<int> vi;
 typedef vector<ii> vii;
 typedef vector<vi> vvi;
-//typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> oset;
 
+ll N, M, ans;
+vi A;
 
-//*
 void setIO(string name = "input") {
     freopen((name + ".in").c_str(), "r", stdin);
     if (name != "input") freopen((name + ".out").c_str(), "w", stdout);
+    return;
 }
-//*/
+
 int main() {
     ios::sync_with_stdio(0); cin.tie(0); setIO();
+
+    cin >> N >> M;
+    A.assign(N, 0);
+    for (int i = 0; i < N; i++) {
+        cin >> A[i];
+    }
+    sort(all(A));
+
+    int i = 0, j = N - 1;
+    while (i < j) {
+        if (A[i] + A[j] <= M) {
+            ans += j - i;
+            ans %= MOD;
+            ++i;
+        }
+        else {
+            --j;
+        }
+    }
+
+    cout << ans << endl;
 
     return 0;
 }

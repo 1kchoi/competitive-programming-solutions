@@ -1,8 +1,6 @@
-// Codeforces ####A - NAME
+// CCC '19 J1 - Winning Score
 #include <bits/stdc++.h>
-//#include <ext/pb_ds/assoc_container.hpp>
 using namespace std;
-//using namespace __gnu_pbds;
 #define endl "\n"
 #define ll long long
 #define ar array
@@ -16,17 +14,35 @@ typedef ar<int, 2> ii;
 typedef vector<int> vi;
 typedef vector<ii> vii;
 typedef vector<vi> vvi;
-//typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> oset;
 
+int A, B;
 
-//*
 void setIO(string name = "input") {
     freopen((name + ".in").c_str(), "r", stdin);
     if (name != "input") freopen((name + ".out").c_str(), "w", stdout);
+    return;
 }
-//*/
+
 int main() {
     ios::sync_with_stdio(0); cin.tie(0); setIO();
+
+    int X;
+    cin >> X; A += X * 3;
+    cin >> X; A += X * 2;
+    cin >> X; A += X * 1;
+    cin >> X; B += X * 3;
+    cin >> X; B += X * 2;
+    cin >> X; B += X * 1;
+
+    if (A > B) {
+        cout << "A" << endl;
+    }
+    else if (B > A) {
+        cout << "B" << endl;
+    }
+    else {
+        cout << "T" << endl;
+    }
 
     return 0;
 }

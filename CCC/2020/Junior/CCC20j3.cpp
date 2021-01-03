@@ -1,8 +1,6 @@
-// Codeforces ####A - NAME
+// CCC '20 J3 - Art
 #include <bits/stdc++.h>
-//#include <ext/pb_ds/assoc_container.hpp>
 using namespace std;
-//using namespace __gnu_pbds;
 #define endl "\n"
 #define ll long long
 #define ar array
@@ -16,17 +14,33 @@ typedef ar<int, 2> ii;
 typedef vector<int> vi;
 typedef vector<ii> vii;
 typedef vector<vi> vvi;
-//typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> oset;
 
+int N, minX, maxX, minY, maxY;
 
-//*
 void setIO(string name = "input") {
     freopen((name + ".in").c_str(), "r", stdin);
     if (name != "input") freopen((name + ".out").c_str(), "w", stdout);
+    return;
 }
-//*/
+
 int main() {
     ios::sync_with_stdio(0); cin.tie(0); setIO();
+
+    cin >> N;
+    minX = minY = INT_MAX;
+    maxX = maxY = INT_MIN;
+    while (N--) {
+        string s; cin >> s;
+        int commaindex = s.find(",");
+        int a = stoi(s.substr(0, commaindex));
+        int b = stoi(s.substr(commaindex + 1)); //cin >> a >> b;
+        minX = min(minX, a);
+        maxX = max(maxX, a);
+        minY = min(minY, b);
+        maxY = max(maxY, b);
+    }
+    cout << minX - 1 << "," << minY - 1 << endl;
+    cout << maxX + 1 << "," << maxY + 1 << endl;
 
     return 0;
 }

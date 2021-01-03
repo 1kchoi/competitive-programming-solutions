@@ -1,8 +1,6 @@
-// Codeforces ####A - NAME
+// Google Kick Start 2020 Round H Question 1 - Retype
 #include <bits/stdc++.h>
-//#include <ext/pb_ds/assoc_container.hpp>
 using namespace std;
-//using namespace __gnu_pbds;
 #define endl "\n"
 #define ll long long
 #define ar array
@@ -16,17 +14,25 @@ typedef ar<int, 2> ii;
 typedef vector<int> vi;
 typedef vector<ii> vii;
 typedef vector<vi> vvi;
-//typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> oset;
 
+ll T, N, K, S;
 
-//*
 void setIO(string name = "input") {
     freopen((name + ".in").c_str(), "r", stdin);
     if (name != "input") freopen((name + ".out").c_str(), "w", stdout);
+    return;
 }
-//*/
+
 int main() {
-    ios::sync_with_stdio(0); cin.tie(0); setIO();
+    ios::sync_with_stdio(0); cin.tie(0); //setIO();
+
+    cin >> T;
+    for (int tc = 1; tc <= T; tc++) {
+        cin >> N >> K >> S;
+        cout << "Case #" << tc << ": ";
+        cout << min(N + 2 * (K - S), N + K);
+        cout << endl;
+    }
 
     return 0;
 }

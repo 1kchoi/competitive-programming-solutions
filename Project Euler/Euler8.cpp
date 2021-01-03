@@ -1,8 +1,6 @@
-// Codeforces ####A - NAME
+// Problem 8 - Largest product in a series
 #include <bits/stdc++.h>
-//#include <ext/pb_ds/assoc_container.hpp>
 using namespace std;
-//using namespace __gnu_pbds;
 #define endl "\n"
 #define ll long long
 #define ar array
@@ -16,17 +14,28 @@ typedef ar<int, 2> ii;
 typedef vector<int> vi;
 typedef vector<ii> vii;
 typedef vector<vi> vvi;
-//typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> oset;
 
+string S;
+ll ans;
 
-//*
 void setIO(string name = "input") {
     freopen((name + ".in").c_str(), "r", stdin);
     if (name != "input") freopen((name + ".out").c_str(), "w", stdout);
+    return;
 }
-//*/
+
 int main() {
     ios::sync_with_stdio(0); cin.tie(0); setIO();
+
+    cin >> S;
+    for (int i = 0; i + 12 < 1000; i++) {
+        ll x = 1;
+        for (int j = 0; j < 13; j++) {
+            x *= (S[i + j] - '0');
+        }
+        ans = max(ans, x);
+    }
+    cout << ans << endl;
 
     return 0;
 }

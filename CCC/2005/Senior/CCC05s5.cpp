@@ -1,4 +1,4 @@
-// CSES Problem Set - List Removals
+// CCC '05 S5 - Pinball Ranking
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
 using namespace __gnu_pbds;
@@ -9,39 +9,38 @@ using namespace std;
 #define PB push_back
 #define all(x) x.begin(), x.end()
 #define sz(x) (int)(x).size()
-#define NMAX (int)(5e5+5)
+#define NMAX (int)(1e5+5)
 #define INF 0x3f
 #define MOD (int)(1e9+7)
-typedef ar<ll, 2> ii;
-typedef vector<ll> vi;
+typedef ar<int, 2> ii;
+typedef vector<int> vi;
 typedef vector<ii> vii;
 typedef vector<vi> vvi;
-typedef tree<ii, null_type, less<ii>, rb_tree_tag, tree_order_statistics_node_update> oset;
+typedef tree<ll, null_type, greater_equal<ll>, rb_tree_tag,
+            tree_order_statistics_node_update> oset;
 
-ll N;
-oset S;
+ll N, ans;
+oset T;
+vector<ll> A;
 
-void setIO(string name = "input") {
+void setIO(bool b, string name = "input") {
+    ios::sync_with_stdio(0); cin.tie(0);
+    if (!b) return;
     freopen((name + ".in").c_str(), "r", stdin);
     if (name != "input") freopen((name + ".out").c_str(), "w", stdout);
     return;
 }
 
 int main() {
-    ios::sync_with_stdio(0); cin.tie(0); //setIO();
+    setIO(1);
 
     cin >> N;
     for (int i = 0; i < N; i++) {
-        ll a; cin >> a;
-        S.insert({i, a});
+        double X; cin >> X;
+        T.insert(X);
+        ans += T.order_of_key(X) + 1.0;
     }
-    for (int i = 0; i < N; i++) {
-        int x; cin >> x; --x;
-        ii ans = *S.find_by_order(x);
-        cout << ans[1] << " ";
-        S.erase(ans);
-    }
-    cout << endl;
+    cout << fixed << setprecision(2) << ans / (N + 0.0) << endl;
 
     return 0;
 }

@@ -1,4 +1,4 @@
-// Codeforces ####A - NAME
+// CCC '17 S4 - Minimum Cost Flow
 #include <bits/stdc++.h>
 //#include <ext/pb_ds/assoc_container.hpp>
 using namespace std;
@@ -18,15 +18,23 @@ typedef vector<ii> vii;
 typedef vector<vi> vvi;
 //typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> oset;
 
+ll N, M, D;
 
 //*
 void setIO(string name = "input") {
     freopen((name + ".in").c_str(), "r", stdin);
     if (name != "input") freopen((name + ".out").c_str(), "w", stdout);
+    return;
 }
 //*/
 int main() {
     ios::sync_with_stdio(0); cin.tie(0); setIO();
+
+    cin >> N >> M >> D;
+    for (int i = 0; i < M; i++) {
+        ll a, b, c; cin >> a >> b >> c;
+        if (i <)
+    }
 
     return 0;
 }

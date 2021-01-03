@@ -23,10 +23,15 @@ typedef vector<vi> vvi;
 void setIO(string name = "input") {
     freopen((name + ".in").c_str(), "r", stdin);
     if (name != "input") freopen((name + ".out").c_str(), "w", stdout);
+    return;
 }
 //*/
 int main() {
     ios::sync_with_stdio(0); cin.tie(0); setIO();
+
+    ll x = INF;
+
+    cout << x << endl;
 
     return 0;
 }

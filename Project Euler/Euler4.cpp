@@ -1,8 +1,6 @@
-// Codeforces ####A - NAME
+// Problem 4 - Largest palindrome product
 #include <bits/stdc++.h>
-//#include <ext/pb_ds/assoc_container.hpp>
 using namespace std;
-//using namespace __gnu_pbds;
 #define endl "\n"
 #define ll long long
 #define ar array
@@ -16,17 +14,40 @@ typedef ar<int, 2> ii;
 typedef vector<int> vi;
 typedef vector<ii> vii;
 typedef vector<vi> vvi;
-//typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> oset;
 
+int ans;
 
-//*
+int rev(int x) {
+    int a = 0;
+    while (x) {
+        a *= 10;
+        a += (x % 10);
+        x /= 10;
+    }
+    return a;
+}
+
+bool isPalindrome(int x) {
+    return x == rev(x);
+}
+
 void setIO(string name = "input") {
     freopen((name + ".in").c_str(), "r", stdin);
     if (name != "input") freopen((name + ".out").c_str(), "w", stdout);
+    return;
 }
-//*/
+
 int main() {
     ios::sync_with_stdio(0); cin.tie(0); setIO();
+
+    for (int i = 100; i < 1000; i++) {
+        for (int j = 100; j < 1000; j++) {
+            if (isPalindrome(i * j)) {
+                ans = max(ans, i * j);
+            }
+        }
+    }
+    cout << ans << endl;
 
     return 0;
 }

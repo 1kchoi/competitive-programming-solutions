@@ -18,7 +18,7 @@ typedef vector<ii> vii;
 typedef vector<vi> vvi;
 
 template<class T> struct Seg {
-    const T ID = LONG_LONG_MAX;
+    const T ID = LLONG_MAX;
     int n;
     vector<T> S;
 
