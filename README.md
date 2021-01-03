@@ -1,2 +1,2 @@
 # competitive-programming-solutions
-damn near every solution i got
+every solution i got
