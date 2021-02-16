@@ -1,0 +1,8 @@
+interesting: if you can place all of the
+a sticks in, then we have to start
+moving on to the b sticks after
+recalculating the optimal way to put in
+the a sticks
+
+take all freebies in O(1) before doing
+regular routine

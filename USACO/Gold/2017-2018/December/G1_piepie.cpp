@@ -11,53 +11,69 @@ using namespace std;
 #define NMAX (int)(1e5+5)
 #define INF 0x3f
 #define MOD (int)(1e9+7)
-typedef ar<int, 2> ii;
-typedef ar<int, 3> i3;
-typedef vector<int> vi;
-typedef vector<i3> vi3;
+typedef ar<ll, 2> ii;
+typedef ar<ll, 3> iii;
+typedef vector<ll> vi;
 typedef vector<ii> vii;
+typedef vector<iii> viii;
 typedef vector<vi> vvi;
 
-int N, D, rawinput[2][NMAX][2], dist[2][NMAX];
-vi3 nodes[2]; // nodes[0] (bessie) has {x, y, id}, but nodes[1] (elsie) has {y, x, id};
-queue<i3> Q; // {A, x, y} or {B, y, x}
-
+ll N, D, dist[2][NMAX], ans[NMAX];
+viii G[2]; // [0] is others, [1] is self
+queue<ii> Q;
 
 void setIO(string name = "input") {
     freopen((name + ".in").c_str(), "r", stdin);
     if (name != "input") freopen((name + ".out").c_str(), "w", stdout);
-    return;
 }
 
 int main() {
-    ios::sync_with_stdio(0); cin.tie(0); setIO();
+    ios::sync_with_stdio(0); cin.tie(0); setIO("piepie");
 
-    memset(dist, -1, sizeof(dist)); // check if memset -1 works
+    memset(dist, -1, sizeof(dist));
     cin >> N >> D;
-    for (int k = 0; k < 2; k++) {
+    for (int i = 0; i < N; i++) {
+        ll a, b; cin >> a >> b;
+        G[0].PB({b, a, i});
+    }
+    for (int i = 0; i < N; i++) {
+        ll a, b; cin >> a >> b;
+        G[1].PB({a, b, i});
+    }
+    sort(all(G[0]));
+    sort(all(G[1]));
+    for (int a = 0; a < 2; a++) {
         for (int i = 0; i < N; i++) {
-            ii x; cin >> x[0] >> x[1];
-            rawinput[k][i][0] = x[0]; rawinput[k][i][1] = x[1];
-            nodes[k].PB({x[k], x[1 - k], i});
-            if (!x[1 - k]) {
-                Q.push({0, x[k], x[1 - k]});
-                dist[k][i] = 1;
+            if (!G[a][i][0]) {
+                Q.push({a, i});
+                dist[a][i] = 1;
             }
         }
     }
-    sort(all(nodes[0]));
-    sort(all(nodes[1]));
 
-    while (Q.size()) {
-        i3 v = Q.front(); Q.pop();
-        int color = v[0];
-        for (vi3::iterator it = lower_bound(all(nodes[1 - color]), {v[1 - color] - D, 0, 0});
-                          it != upper_bound(all(nodes[1 - color])), {v[1 - color], 0, 0}); it++) {
 
+    while (sz(Q)) {
+        ii info = Q.front(); Q.pop();
+        ll player = info[0], pos = info[1];
+        ll self = G[player][pos][1];
+        iii ltarget = {self - D, -(ll)(1e12), -(ll)(1e12)};
+        iii rtarget = {self, (ll)(1e12), (ll)(1e12)};
+        viii::iterator l = lower_bound(all(G[!player]), ltarget);
+        viii::iterator r = upper_bound(all(G[!player]), rtarget); // fix with b search
+        for (viii::iterator it = l; it != r; it++) {
+            int i = it - G[!player].begin();
+            if (dist[!player][i] >= 0) continue;
+            dist[!player][i] = dist[player][pos] + 1;
+            Q.push({!player, i});
         }
     }
 
-
+    for (int i = 0; i < N; i++) {
+        ans[G[0][i][2]] = dist[0][i];
+    }
+    for (int i = 0; i < N; i++) {
+        cout << ans[i] << endl;
+    }
 
     return 0;
 }

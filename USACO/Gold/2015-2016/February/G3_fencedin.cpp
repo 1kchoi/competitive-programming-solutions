@@ -8,7 +8,7 @@ using namespace std;
 #define PB push_back
 #define all(x) x.begin(), x.end()
 #define sz(x) (int)(x).size()
-#define NMAX 2010
+#define NMAX (int)(2e3+5)
 #define INF 0x3f
 #define MOD (int)(1e9+7)
 typedef ar<int, 2> ii;
@@ -16,43 +16,82 @@ typedef vector<int> vi;
 typedef vector<ii> vii;
 typedef vector<vi> vvi;
 
-ll AMX, BMX, N, M;
-vector<ar<ll, 3>> G;
-vector<ll> A, B;
+struct DSU {
+    int e[NMAX][NMAX][2];
+    void init() { memset(e, -1, sizeof(e)); }
+    ii get(int i, int j) {
+        if (e[i][j][0] < 0) {
+            return {i, j};
+        }
+        ii ans = get(e[i][j][0], e[i][j][1]);
+        e[i][j][0] = ans[0];
+        e[i][j][1] = ans[1];
+        return ans;
+    }
+    bool isSameSet(int i1, int j1, int i2, int j2) { return get(i1, j1) == get(i2, j2); }
+    int size(int i, int j) {
+        ii parent = get(i, j);
+        return -e[parent[0]][parent[1]][0];
+    }
+    bool unite(int i1, int j1, int i2, int j2) {
+        ii parent1 = get(i1, j1), parent2 = get(i2, j2);
+        if (parent1 == parent2) return false;
+        i1 = parent1[0]; j1 = parent1[1]; i2 = parent2[0]; j2 = parent2[1];
+        if (size(i1, j1) > size(i2, j2)) {
+            swap(i1, i2); swap(j1, j2);
+        }
+        e[i1][j1][0] += e[i2][j2][0];
+        e[i1][j1][1] = e[i1][j1][0];
+        e[i2][j2][0] = i1; e[i2][j2][1] = j1;
+        return true;
+    }
+};
 
-int c(int i, int j) {
-    return j * (N + 2) + i;
-}
+int A, B, N, M;
+ll ans;
+vi hor, vert;
+DSU S;
+vector<ar<int, 5>> EL;
 
 void setIO(string name = "input") {
     freopen((name + ".in").c_str(), "r", stdin);
     if (name != "input") freopen((name + ".out").c_str(), "w", stdout);
-    return;
 }
 
 int main() {
-    ios::sync_with_stdio(0); cin.tie(0); setIO();
+    ios::sync_with_stdio(0); cin.tie(0); setIO("fencedin");
 
-    cin >> AMX >> BMX >> N >> M;
-    A.assign(N + 2, 0);
-    for (int i = 1; i <= N; i++) {
-        cin >> A[i];
+    cin >> A >> B >> N >> M;
+    S.init();
+    for (int i = 0; i < N; i++) {
+        int x; cin >> x; hor.PB(x);
     }
-    A[N + 1] = AMX;
-    sort(all(A));
-
-    B.assign(M + 2, 0);
-    for (int i = 0; i <= M; i++) {
-        cin >> B[i];
+    for (int i = 0; i < M; i++) {
+        int x; cin >> x; vert.PB(x);
     }
-    B[M + 1] = BMX;
-    sort(all(B));
-
+    hor.PB(A); hor.PB(0); vert.PB(B); vert.PB(0);
+    sort(all(vert)); sort(all(hor));
     for (int i = 0; i <= N; i++) {
-        for (int j = 0; j <= M; j++) {
-            G.PB({j * (N + 2) + i, i * N + 2) + j + 1})
+        int weight = hor[i + 1] - hor[i];
+        for (int j = 0; j + 1 <= M; j++) {
+            EL.PB({weight, i, j, i, j + 1});
         }
     }
+    for (int i = 0; i <= M; i++) {
+        int weight = vert[i + 1] - vert[i];
+        for (int j = 0; j + 1 <= N; j++) {
+            EL.PB({weight, j, i, j + 1, i});
+        }
+    }
+    sort(all(EL));
+    for (ar<int, 5> e : EL) {
+        int weight = e[0];
+        int i1 = e[1], j1 = e[2], i2 = e[3], j2 = e[4];
+        if (S.unite(i1, j1, i2, j2)) {
+            ans += weight;
+        }
+    }
+    cout << ans << endl;
 
     return 0;
 }

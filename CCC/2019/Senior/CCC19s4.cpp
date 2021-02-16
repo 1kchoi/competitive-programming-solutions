@@ -68,6 +68,13 @@ template<class T> struct RMQ {
 ll N, K, p, A[NMAX], idx[NMAX], dp[NMAX];
 RMQ<ll> M;
 
+void printDP() {
+    for (int i = 1; i <= N; i++) {
+        cout << dp[i] << " ";
+    }
+    cout << endl;
+}
+
 int main() {
     ios::sync_with_stdio(0); cin.tie(0);
     freopen("input.in", "r", stdin);
@@ -87,17 +94,15 @@ int main() {
         }
         p = max(p, i-K);
 
-        while (true) {
+        dp[i] = dp[p] + M.query(p, i-1);
+
+        while (idx[p] == idx[p+1] && dp[i] <= dp[p+1] + M.query(p+1, i-1)) {
+            p++;
             dp[i] = dp[p] + M.query(p, i-1);
-            if (idx[p] == idx[p+1] && dp[i] <= dp[p+1] + M.query(p+1, i-1)) {
-                p++;
-            }
-            else {
-                break;
-            }
         }
     }
 
+    printDP();
     cout << dp[N] << endl;
 
 

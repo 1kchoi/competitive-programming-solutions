@@ -17,6 +17,9 @@ typedef vector<ii> vii;
 typedef vector<vi> vvi;
 
 template<class T> struct SparseTable {
+    // this is my sparse table implementation. the details of it aren't
+    // important, so just have faith that it works. you can borrow it
+    // if you want.
     int N;
     T A[NMAX], S[LOGNMAX][NMAX];
 
@@ -45,19 +48,23 @@ ll N, K, A[NMAX], dp[NMAX];
 SparseTable<ll> RMQ;
 
 void solve(ll l, ll r, ll optl, ll optr) {
-    if (l > r) return;
-    ll mid = (l + r) >> 1;
-    ii best = {-LLONG_MAX/10, -1LL};
+    // this iteration of solve() will solve dp[mid], where mid = (l + r) / 2.
+    // it will go through all indexes i between optl and optr to find the best split point
 
-    for (ll i = max(mid - K, optl); i <= optr; i++) { // roof = l - 1 on first recursion
-        best = max(best, {dp[i] + RMQ.query(i + 1, mid), i});
+    if (l > r) return;
+    ll mid = (l + r) / 2;
+    ll optimal_split = -1LL;
+
+    for (ll i = max(mid - K, optl); i <= optr; i++) {
+        ll candidate = dp[i] + RMQ.query(i + 1, mid);
+        if (dp[mid] < candidate) {
+            dp[mid] = candidate;
+            optimal_split = i;
+        }
     }
 
-    dp[mid] = best[0];
-    ll opt = best[1];
-
-    solve(l, mid - 1, optl, opt);
-    solve(mid + 1, r, opt, optr);
+    solve(l, mid - 1, optl, optimal_split);
+    solve(mid + 1, r, optimal_split, optr);
 }
 
 //*
@@ -69,31 +76,21 @@ void setIO(string name = "input") {
 //*/
 
 int main() {
-    ios::sync_with_stdio(0); cin.tie(0); //setIO();
+    ios::sync_with_stdio(0); cin.tie(0); setIO();
 
+    memset(dp, -INF, sizeof(dp));
     cin >> N >> K;
     for (int i = 1; i <= N; i++) {
         cin >> A[i];
     }
     RMQ.init(N + 1, A);
-
     for (int i = 1; i <= K; i++) {
         dp[i] = RMQ.query(1, i);
     }
-
     for (int i = K + 1; i <= N; i += K) {
         solve(i, min(N, i + K - 1), i - K, i - 1);
     }
-
-/*
-    for (int i = 1; i <= N; i++) {
-        cout << dp[i] << " ";
-    }
-    cout << endl;
-*/
-
     cout << dp[N] << endl;
-
 
     return 0;
 }

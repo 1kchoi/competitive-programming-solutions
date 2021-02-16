@@ -22,10 +22,13 @@ typedef vector<vi> vvi;
 int N, K;
 ll A[NMAX], dp[KMAX][NMAX], ans = LLONG_MAX;
 
+void setIO(string name = "input") {
+    freopen((name + ".in").c_str(), "r", stdin);
+    if (name != "input") freopen((name + ".out").c_str(), "w", stdout);
+}
+
 int main() {
-    ios::sync_with_stdio(0); cin.tie(0);
-    freopen("cbarn2.in", "r", stdin);
-    freopen("cbarn2.out", "w", stdout);
+    ios::sync_with_stdio(0); cin.tie(0); setIO();
 
     cin >> N >> K;
     for (int i = 0; i < N; i++) {
