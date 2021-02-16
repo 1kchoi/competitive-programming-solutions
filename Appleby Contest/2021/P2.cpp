@@ -1,4 +1,4 @@
-// TEST SET GENERATOR
+// Appleby Contest '20 P2 - Playful Playdoughs
 #include <bits/stdc++.h>
 using namespace std;
 #define endl "\n"
@@ -15,27 +15,31 @@ typedef vector<int> vi;
 typedef vector<ii> vii;
 typedef vector<vi> vvi;
 
-int N, K;
-vi A;
+ll N, Q, A[NMAX];
 
 void setIO(string name = "input") {
     freopen((name + ".in").c_str(), "r", stdin);
-    freopen((name + ".in").c_str(), "w", stdout);
+    if (name != "input") freopen((name + ".out").c_str(), "w", stdout);
 }
 
 int main() {
-    ios::sync_with_stdio(0); cin.tie(0); setIO();
+    ios::sync_with_stdio(0); cin.tie(0);
 
-    srand((unsigned) time(0));
-
-    N = 15;
-    cout << N << endl;
+    cin >> N >> Q;
     for (int i = 0; i < N; i++) {
-        A.PB(rand() % 500 + 1);
+        ll x; cin >> x;
+        A[x]++;
     }
-    sort(all(A));
-    for (int x : A) {
-        cout << x << " ";
+    while (Q--) {
+        ll t, x; cin >> t >> x;
+        if (t == 1) {
+            A[x / 2] += A[x];
+            A[(x + 1) / 2] += A[x];
+            A[x] = 0;
+        }
+        else {
+            cout << A[x] << endl;
+        }
     }
 
     return 0;

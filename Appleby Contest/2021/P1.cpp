@@ -1,4 +1,4 @@
-// TEST SET GENERATOR
+// Appleby Contest '20 P1 - Terrific Triangles
 #include <bits/stdc++.h>
 using namespace std;
 #define endl "\n"
@@ -15,27 +15,31 @@ typedef vector<int> vi;
 typedef vector<ii> vii;
 typedef vector<vi> vvi;
 
-int N, K;
-vi A;
+ll N, A[3];
 
 void setIO(string name = "input") {
     freopen((name + ".in").c_str(), "r", stdin);
-    freopen((name + ".in").c_str(), "w", stdout);
+    if (name != "input") freopen((name + ".out").c_str(), "w", stdout);
 }
 
 int main() {
     ios::sync_with_stdio(0); cin.tie(0); setIO();
 
-    srand((unsigned) time(0));
-
-    N = 15;
-    cout << N << endl;
-    for (int i = 0; i < N; i++) {
-        A.PB(rand() % 500 + 1);
-    }
-    sort(all(A));
-    for (int x : A) {
-        cout << x << " ";
+    cin >> N;
+    while (N--) {
+        cin >> A[0] >> A[1] >> A[2];
+        sort(A, A + 3);
+        ll sum = A[0] * A[0] + A[1] * A[1];
+        ll sum2 = A[2] * A[2];
+        if (sum == sum2) {
+            cout << "R" << endl;
+        }
+        else if (sum < sum2) {
+            cout << "O" << endl;
+        }
+        else {
+            cout << "A" << endl;
+        }
     }
 
     return 0;
