@@ -33,7 +33,7 @@ int main() {
     for (int i = 0; i < N; i++) {
         A.PB(rand() % 500 + 1);
     }
-    sort(all(A));
+    //sort(all(A));
     for (int x : A) {
         cout << x << " ";
     }
